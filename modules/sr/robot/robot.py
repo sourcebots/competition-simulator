@@ -10,10 +10,10 @@ from sr.robot import (
     gyro,
     motor,
     radio,
+    magnet,
     arduino,
     compass,
     encoder,
-    connector,
     accelerometer,
 )
 # Webots specific library
@@ -108,9 +108,10 @@ class Robot:
     def wait_start(self) -> None:
         "Wait for the start signal to happen"
 
-        if self.mode not in ["comp", "dev"]:
+        if self.mode not in ["comp", "dev", "remote-dev"]:
             raise Exception(
-                f"mode of '{self.mode}' is not supported -- must be 'comp' or 'dev'",
+                f"mode of '{self.mode}' is not supported -- must be 'comp', "
+                "'dev or 'remote-dev'",
             )
         if self.zone < 0 or self.zone > 3:
             raise Exception(
@@ -156,8 +157,8 @@ class Robot:
         # Compass
         self._init_compass()
 
-        # Connector
-        self._init_connector()
+        # Crane Magnet
+        self._init_magnet()
 
         # Position encoders
         self._init_encoders()
@@ -178,9 +179,9 @@ class Robot:
         if self.type != RobotType.CRANE:  # The crane lacks a compass
             self.compass = compass.Compass(self.webot)
 
-    def _init_connector(self) -> None:
+    def _init_magnet(self) -> None:
         if self.type == RobotType.CRANE:
-            self.connector = connector.Connector(self.webot)
+            self.magnet = magnet.Magnet(self.webot)
 
     def _init_encoders(self) -> None:
         self.encoders = encoder.init_encoder_array(self.webot, self.type)
