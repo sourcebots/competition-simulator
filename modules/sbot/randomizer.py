@@ -23,7 +23,7 @@ def add_jitter(
 ) -> float:
     random_range = actual_value * (random_range_percent / float(100))
     new_value = actual_value + random.uniform(-random_range, random_range)
-    return max(min_possible, min(new_value, max_possible))
+    return float(max(min_possible, min(new_value, max_possible)))
 
 
 def add_independent_jitter(
@@ -38,6 +38,6 @@ def add_independent_jitter(
     new_value = random.gauss(actual_value, std_dev)
     if can_wrap:
         new_value_normalised = new_value - min_possible
-        return (new_value_normalised % value_range) + min_possible
+        return float((new_value_normalised % value_range) + min_possible)
     else:
-        return max(min_possible, min(new_value, max_possible))
+        return float(max(min_possible, min(new_value, max_possible)))
