@@ -115,6 +115,14 @@ PROTO SBCrane [
                           endPoint Solid {
                             translation 0 %{=-0.025-fields.initPos.value.y}% 0
                             children [
+                              Receiver {
+                                type "radio"
+                                name "robot receiver"
+                                bufferSize 30
+                                channel 1
+                                directionNoise 0.05
+                                signalStrengthNoise 0.03
+                              }
                               BallJoint {  # allow the hook to tilt
                                 jointParameters BallJointParameters {
                                   minStop -0.7854
@@ -161,14 +169,6 @@ PROTO SBCrane [
                                       name "Crane Connector"
                                       unilateralUnlock TRUE
                                       unilateralLock TRUE
-                                    }
-                                    Receiver {
-                                      type "radio"
-                                      name "robot receiver"
-                                      bufferSize 30
-                                      channel 1
-                                      directionNoise 0.05
-                                      signalStrengthNoise 0.03
                                     }
                                     DistanceSensor {
                                       translation 0 -0.025 0
