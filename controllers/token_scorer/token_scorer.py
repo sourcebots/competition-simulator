@@ -263,6 +263,14 @@ class TokenScorer:
     def process_token_locations(self) -> None:
         observed_tokens: List[TargetInfo] = []
 
+        if sum(
+            receiver.getQueueLength()
+            for receiver in self._scoring_receivers.keys()
+        ) == 0:
+            # beacons are always visible from the scorer
+            # so if nothing is received then the token_controller has ended
+            return
+
         for receiver, receiver_location in self._scoring_receivers.items():
             while receiver.getQueueLength():
                 try:
