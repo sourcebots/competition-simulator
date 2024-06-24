@@ -55,6 +55,7 @@ PROTO SBForklift [
                   RotationalMotor {
                     name "left wheel"
                     maxVelocity 12.3
+                    maxTorque 0.1
                     sound ""
                   }
                   PositionSensor {
@@ -111,6 +112,7 @@ PROTO SBForklift [
                   RotationalMotor {
                     name "right wheel"
                     maxVelocity 12.3
+                    maxTorque 0.1
                     sound ""
                   }
                   PositionSensor {
